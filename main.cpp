@@ -16,28 +16,27 @@ int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     
-    multiset<int> s;
-    int n, m, temp;
-    cin >> n >> m;
+    int n;
+    cin >> n;
+    int a[n], b[n];
     for(int i = 0; i<n; i+=1){
-        cin >> temp;
-        s.insert(temp);
+        cin >> a[i] >> b[i];
     }
-    for(int i = 0; i<m; i+=1){
-        cin >> temp;
-        auto it = s.lower_bound(temp);
-        if((it == s.begin() && *it > temp) || s.empty()){
-            cout << -1 << endl;
+    sort(a, a+n);
+    sort(b, b+n);
+    int cur = 0, mx = -1;
+    int i = 0, j = 0;
+    while(i < n){
+        if(a[i] < b[j]){
+            cur += 1;
+            i += 1;
         }
-        else if(*it > temp || it == s.end()){
-            it--;
-            cout << *it << endl;
-            s.erase(it);
+        else if(a[i] > b[j]){
+            cur -= 1;
+            j += 1;
         }
-        else{
-            cout << *it <<endl;
-            s.erase(it);
-        }
+        mx = cur > mx ? cur : mx;
     }
+    cout << mx << endl;
 
 }
