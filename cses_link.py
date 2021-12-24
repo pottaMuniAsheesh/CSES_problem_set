@@ -1,7 +1,7 @@
 import os
 import re
 
-dir = './CSES_problem_set'
+dir = os.getcwd()
 
 files = os.listdir(dir)
 
