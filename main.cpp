@@ -16,27 +16,33 @@ int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     
-    int n;
-    cin >> n;
-    int a[n], b[n];
+    int n, x;
+    cin >> n >> x;
+    vector<pair<int, int>> a(n);
     for(int i = 0; i<n; i+=1){
-        cin >> a[i] >> b[i];
+        cin >> a[i].first;
+        a[i].second = i;
     }
-    sort(a, a+n);
-    sort(b, b+n);
-    int cur = 0, mx = -1;
-    int i = 0, j = 0;
-    while(i < n){
-        if(a[i] < b[j]){
-            cur += 1;
-            i += 1;
+    sort(a.begin(), a.end(), [](pair<int, int> a, pair<int, int> b){return a.first < b.first;});
+    int l = 0, r = n-1;
+    bool flag = false;
+    while(l<r){
+        if(a[l].first+a[r].first < x){
+            l += 1;
         }
-        else if(a[i] > b[j]){
-            cur -= 1;
-            j += 1;
+        else if(a[l].first+a[r].first > x){
+            r -= 1;
         }
-        mx = cur > mx ? cur : mx;
+        else{
+            flag = true;
+            break;
+        }
     }
-    cout << mx << endl;
+    if(flag){
+        cout << a[l].second+1 << ' ' << a[r].second+1 << endl;
+    }
+    else{
+        cout << "IMPOSSIBLE" << endl;
+    }
 
 }
