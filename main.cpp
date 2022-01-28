@@ -5,7 +5,8 @@ typedef long long ll;
 
 using namespace std;
 
-void read_array(int a[], int n){
+template<typename T>
+void read_array(T a[], int n){
     for(int i = 0; i<n; i+=1){
         cin >> a[i];
     }
@@ -16,33 +17,15 @@ int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     
-    int n, x;
-    cin >> n >> x;
-    vector<pair<int, int>> a(n);
+    int n;
+    cin >> n;
+    int a[n];
+    read_array<int>(a, n);
+    sort(a, a+n);
+    ll res = 0;
     for(int i = 0; i<n; i+=1){
-        cin >> a[i].first;
-        a[i].second = i;
+        res += abs(a[i]-a[n/2]);
     }
-    sort(a.begin(), a.end(), [](pair<int, int> a, pair<int, int> b){return a.first < b.first;});
-    int l = 0, r = n-1;
-    bool flag = false;
-    while(l<r){
-        if(a[l].first+a[r].first < x){
-            l += 1;
-        }
-        else if(a[l].first+a[r].first > x){
-            r -= 1;
-        }
-        else{
-            flag = true;
-            break;
-        }
-    }
-    if(flag){
-        cout << a[l].second+1 << ' ' << a[r].second+1 << endl;
-    }
-    else{
-        cout << "IMPOSSIBLE" << endl;
-    }
+    cout << res << endl;
 
 }
