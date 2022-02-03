@@ -17,14 +17,18 @@ int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     
-    int n;
+    int n, temp = 0;
     cin >> n;
-    int a[n];
-    read_array<int>(a, n);
-    sort(a, a+n);
-    ll res = 0;
+    int pos[n];
     for(int i = 0; i<n; i+=1){
-        res += abs(a[i]-a[n/2]);
+        cin >> temp;
+        pos[temp-1] = i;
+    }
+    int res = 1;
+    for(int i = 0; i<n-1; i+=1){
+        if(pos[i+1] < pos[i]){
+            res += 1;
+        }
     }
     cout << res << endl;
 
