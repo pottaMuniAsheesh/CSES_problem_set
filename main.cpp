@@ -23,27 +23,17 @@ int main(){
     read_array<int>(c, n);
     sort(c, c+n);
     int a[x+1];
-    a[0] = 0;
-    if(x < c[0]){
-        cout << -1 << endl;
+    for(int i = 0; i<=x; i+=1){
+        a[i] = 0;
     }
-    else{
-        for(int i = 0; i<n; i+=1){
-            a[c[i]] = 1;
-        }
-        for(int i = 1; i<=x; i++){
-            int mn = INT_MAX;
-            for(int j = 0; j<n && i-c[j]>=0; j++){
-                mn = min(mn, a[i-c[j]]);
-            }
-            if(mn == INT_MAX){
-                a[i] = INT_MAX;
-            }
-            else{
-                a[i] = mn + 1;
+    a[0] = 1;
+    for(int i = 0; i<=x; i+=1){
+        for(int j = 0; j<n; j+=1){
+            if(i-c[j] >= 0){
+                a[i] = (a[i-c[j]] + a[i]) % MOD;
             }
         }
-        cout << ((a[x] == INT_MAX) ? -1 : a[x]) << endl;
     }
+    cout << a[x] << endl;
 
 }
