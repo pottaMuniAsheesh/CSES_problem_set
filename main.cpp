@@ -17,25 +17,19 @@ int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     
-    int n, x;
-    cin >> n >> x;
-    int c[n];
-    read_array<int>(c, n);
-    sort(c, c+n);
-    int a[x+1];
-    for(int i = 0; i<=x; i++){
-        a[i] = 0;
-    }
-    // for(int i = 0; i<n; i+=1){
-    //     for(int j = 0; j<=x; j++){
-    //         a[i][j] = (j == c[i]) ? 1 : 0;
-    //     }
-    // }
-    for(int i = n-1; i>=0; i--){
-        for(int j = 0; j<=x; j++){
-            a[j] = (a[j] + ((j-c[i]>=0) ? a[j-c[i]] : 0) + ((j == c[i]) ? 1 : 0))%MOD;
+    int n;
+    cin >> n;
+    int a[n+1];
+    a[0] = 0;
+    for(int i = 1; i<=n; i++) a[i] = INT_MAX;
+    for(int i = 1; i<=n; i++){
+        int temp_min = INT_MAX, temp = i;
+        while(temp>0){
+            temp_min = min(temp_min, a[i - (temp%10)]);
+            temp /= 10;
         }
+        a[i] = temp_min + 1;
     }
-    cout << a[x] << endl;
+    cout << a[n] << endl;
 
 }
