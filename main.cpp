@@ -19,17 +19,25 @@ int main(){
     
     int n;
     cin >> n;
-    int a[n+1];
-    a[0] = 0;
-    for(int i = 1; i<=n; i++) a[i] = INT_MAX;
-    for(int i = 1; i<=n; i++){
-        int temp_min = INT_MAX, temp = i;
-        while(temp>0){
-            temp_min = min(temp_min, a[i - (temp%10)]);
-            temp /= 10;
-        }
-        a[i] = temp_min + 1;
+    string grid[n];
+    for(int i = 0; i<n; i++){
+        cin >> grid[i];
     }
-    cout << a[n] << endl;
+    int paths[n][n];
+    for(int i = 0; i<n; i++){
+        for(int j = 0; j<n; j++){
+            paths[i][j] = 0;
+        }
+    }
+    if(grid[0][0] == '.') paths[0][0] = 1;
+    for(int i = 0; i<n; i++){
+        for(int j = 0; j<n; j++){
+            if(grid[i][j] == '.'){
+                if(j>=1) paths[i][j] = (paths[i][j] + paths[i][j-1])%MOD;
+                if(i>=1) paths[i][j] = (paths[i][j] + paths[i-1][j])%MOD;
+            }
+        }
+    }
+    cout << paths[n-1][n-1] << endl;
 
 }
