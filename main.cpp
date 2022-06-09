@@ -23,15 +23,17 @@ int main(){
     read_array<int>(c, n);
     sort(c, c+n);
     int a[x+1];
-    for(int i = 0; i<=x; i+=1){
+    for(int i = 0; i<=x; i++){
         a[i] = 0;
     }
-    a[0] = 1;
-    for(int i = 0; i<=x; i+=1){
-        for(int j = 0; j<n; j+=1){
-            if(i-c[j] >= 0){
-                a[i] = (a[i-c[j]] + a[i]) % MOD;
-            }
+    // for(int i = 0; i<n; i+=1){
+    //     for(int j = 0; j<=x; j++){
+    //         a[i][j] = (j == c[i]) ? 1 : 0;
+    //     }
+    // }
+    for(int i = n-1; i>=0; i--){
+        for(int j = 0; j<=x; j++){
+            a[j] = (a[j] + ((j-c[i]>=0) ? a[j-c[i]] : 0) + ((j == c[i]) ? 1 : 0))%MOD;
         }
     }
     cout << a[x] << endl;
