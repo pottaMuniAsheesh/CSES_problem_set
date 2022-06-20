@@ -19,25 +19,22 @@ int main(){
     
     int n;
     cin >> n;
-    string grid[n];
+    pair<int,int> a[n];
     for(int i = 0; i<n; i++){
-        cin >> grid[i];
+        cin >> a[i].first >> a[i].second;
     }
-    int paths[n][n];
-    for(int i = 0; i<n; i++){
-        for(int j = 0; j<n; j++){
-            paths[i][j] = 0;
-        }
+    sort(a, a+n);
+    int res[n];
+    for(int i = n-1; i>=0; i--){
+        res[i] = 0;
+        int temp = 0;
+        auto it = lower_bound(a, a+n, make_pair(a[i].first+1,0)); // if you don't watch this movie.
+        temp = (it == a+n ? 0 : res[it-a]);
+        it = lower_bound(a, a+n, make_pair(a[i].second,0)); // if you watch this movie.
+        res[i] = (it == a+n ? 1 : res[it-a]+1);
+        // cout << "i=" << i << "dw=" << 
+        res[i] = max(res[i], temp);
     }
-    if(grid[0][0] == '.') paths[0][0] = 1;
-    for(int i = 0; i<n; i++){
-        for(int j = 0; j<n; j++){
-            if(grid[i][j] == '.'){
-                if(j>=1) paths[i][j] = (paths[i][j] + paths[i][j-1])%MOD;
-                if(i>=1) paths[i][j] = (paths[i][j] + paths[i-1][j])%MOD;
-            }
-        }
-    }
-    cout << paths[n-1][n-1] << endl;
+    cout << res[0] << endl;
 
 }
