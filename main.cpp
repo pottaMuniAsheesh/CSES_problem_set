@@ -19,22 +19,23 @@ int main(){
     
     int n;
     cin >> n;
-    pair<int,int> a[n];
-    for(int i = 0; i<n; i++){
-        cin >> a[i].first >> a[i].second;
-    }
+    int a[n];
+    read_array<int>(a, n);
     sort(a, a+n);
-    int res[n];
-    for(int i = n-1; i>=0; i--){
-        res[i] = 0;
-        int temp = 0;
-        auto it = lower_bound(a, a+n, make_pair(a[i].first+1,0)); // if you don't watch this movie.
-        temp = (it == a+n ? 0 : res[it-a]);
-        it = lower_bound(a, a+n, make_pair(a[i].second,0)); // if you watch this movie.
-        res[i] = (it == a+n ? 1 : res[it-a]+1);
-        // cout << "i=" << i << "dw=" << 
-        res[i] = max(res[i], temp);
+    ll pre_sum[n], sum = 0;
+    for(int i = 0; i<n; i++){
+        sum += a[i];
+        pre_sum[i] = sum;
     }
-    cout << res[0] << endl;
+    ll target = 1;
+    for(int i = 0; i<n; i++){
+        if(a[i]<=target){
+            target = pre_sum[i] + 1;
+        }
+        else{
+            break;
+        }
+    }
+    cout << target << endl;
 
 }
