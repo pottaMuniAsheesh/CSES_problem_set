@@ -26,7 +26,7 @@ topicwise = re.findall(r'<h2>([\w\s]+?)</h2><ul class="task-list">(.*?)</ul>', c
 topicwise_tasklist = dict()
 
 for k,v in topicwise:
-    topicwise_tasklist[k] = re.findall(r'<a href="/problemset/task/([0-9]*?)">([\w\s]+?)</a>', v)
+    topicwise_tasklist[k] = re.findall(r'<a href="/problemset/task/([0-9]*?)">(.+?)</a>', v)
     # print(k, topicwise_tasklist[k])
 
 for k,v in topicwise_tasklist.items():
